@@ -1,41 +1,99 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+parameters:
+  - name: Environment
+    type: string
+    default: NPRD
+    values:
+      - NPRD
+      - PROD
+
+variables:
+- name: dockerRegistryServiceConnection
+  ${{ if eq(parameters.Environment, 'NPRD') }}:
+      value: 'codeinsightsacrnprd2'
+  ${{ elseif eq(parameters.Environment, 'PROD') }}:
+      value: 'codeinsightsacrprdstaging'
+- name: imageRepository
+  value: 'codeinsights'
+- name: containerRegistry
+  ${{ if eq(parameters.Environment, 'NPRD') }}:
+      value: 'codeinsightsacrnprd2.azurecr.io'
+  ${{ elseif eq(parameters.Environment, 'PROD') }}:
+      value: 'codeinsightsacrprdstaging.azurecr.io'
+- name: dockerfilePath
+  ${{ if eq(parameters.Environment, 'NPRD') }}:
+      value: '$(Build.SourcesDirectory)/codeinsights-web/Dockerfile-NPRD'
+  ${{ elseif eq(parameters.Environment, 'PROD') }}:
+      value: '$(Build.SourcesDirectory)/codeinsights-web/Dockerfile-PROD'     
+- name: tag
+  value: 'v1'
 
 trigger:
-- master
+  - main 
 
 pool:
-  vmImage: ubuntu-latest
-
+  name: 30553-CodeInsights-02-DevOps-westus2-AgentPool
+strategy:
+  matrix:
+    node_12_x:
+      node_version: 12.x
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
 
-- task: CmdLine@2
-  displayName: SCA for Linux 
-  enabled: true
-  inputs:
-    script: |
-      export SCM_URI=https://30268-VerademoJava
-      export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
-      export scaDownloadUrl=https://download.srcclr.com/ci.sh
-      export SCM_REF_TYPE=branch
-      # make sure the branch name is set appropriately for the below scm_ref 
-      export SCM_REF=main
-      export SCM_REV=1.0
-      # If the pom file is not in source directory cd to where pom.xml and add the maven settings to the scan run
-      # cd $(Build.SourcesDirectory)/$(repo_name)
-      # ls -ld  ~/.m2
-      # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
-      # ls -l  ~/.m2/settings.xml
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --no-upload --json=results.json
+  - task: NodeTool@0
+    displayName: node install
+    inputs:
+      versionSpec: $(node_version)
+
+  - script: |
+      echo Tasks to build and deploy scanner webapp.
+      echo See https://aka.ms/yaml
+      displayName: 'code checkout'
+      export https_proxy=proxy.conexus.svc.local:3128
+      git clone -v --branch master https://vm896f:$(pwd)@codecloud.web.att.com/scm/st_cpm/codeinsights-web.git      
+      exit
+
+  - bash: |
+      set -xe
+    displayName: Restart docker daemon
+    enabled: false
+     
+  - task: Docker@2
+    displayName: Login to ACR
+    enabled: true
+    inputs:
+      command: login
+      containerRegistry: $(dockerRegistryServiceConnection)
+  
+  - task: Docker@2
+    enabled: true
+    displayName: Build and Push
+    inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+  - task: CmdLine@2
+    displayName: SCA for Linux 
+    enabled: true
+    inputs:
+      script: |
+        export SCM_URI=https://30268-VerademoJava
+        export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
+        export scaDownloadUrl=https://download.srcclr.com/ci.sh
+        export SCM_REF_TYPE=branch
+        # make sure the branch name is set appropriately for the below scm_ref 
+        export SCM_REF=main
+        export SCM_REV=1.0
+        # If the pom file is not in source directory cd to where pom.xml and add the maven settings to the scan run
+        # cd $(Build.SourcesDirectory)/$(repo_name)
+        # ls -ld  ~/.m2
+        # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
+        # ls -l  ~/.m2/settings.xml
+        curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --no-upload --json
