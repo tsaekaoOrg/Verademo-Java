@@ -27,3 +27,5 @@ steps:
     scanTarget: 'https://github.com/jtsmith2020/verademo-java'
     appName: 'Verademo-Java'
     minCVSS: '5'
+  env:
+      SRCCLR_API_TOKEN: $(SRCCLR_API_TOKEN)
