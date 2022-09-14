@@ -20,3 +20,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: VeracodeCommunityScaAdoExtension@1
+  inputs:
+    scanType: 'url'
+    scanTarget: 'https://github.com/jtsmith2020/verademo-java'
+    appName: 'Verademo-Java'
+    minCVSS: '5'
