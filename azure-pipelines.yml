@@ -26,7 +26,7 @@ steps:
   enabled: true
   inputs:
     script: |
-      export SCM_URI=https://30268-VerademoJava
+      export SCM_URI=https://30268-VerademoJava-JDB-Example
       export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
       export scaDownloadUrl=https://download.srcclr.com/ci.sh
       export SCM_REF_TYPE=branch
@@ -38,4 +38,4 @@ steps:
       # ls -ld  ~/.m2
       # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
       # ls -l  ~/.m2/settings.xml
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --no-upload --json
+      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
