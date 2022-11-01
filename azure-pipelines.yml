@@ -26,7 +26,7 @@ steps:
   enabled: true
   inputs:
     script: |
-      export SCM_URI=https://30268-VerademoJava-JDB-Example
+      export SCM_URI=https://30268-VerademoJava
       export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
       export scaDownloadUrl=https://download.srcclr.com/ci.sh
       export SCM_REF_TYPE=branch
