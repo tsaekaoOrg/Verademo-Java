@@ -27,15 +27,17 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: '**/?(*.ear|*.war|*.jar)'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: Veracode@3
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
-    veracodeAppProfile: '30268-DSOI'
-    version: '$(build.buildNumber)'
+    veracodeAppProfile: $(Application_Profile_name)
+    version: 'Verademo-$(build.buildNumber)'
     filepath: '$(build.artifactstagingdirectory)'
     sandboxName: 'Verademo'
-    createSandBox: true # make sure the create sandbox is set to true
+    createSandBox: false # Set true to create sandbox, or false if sandbox is already created
+    importResults: true
     maximumWaitTime: '360'
 
 - task: CmdLine@2
@@ -43,7 +45,7 @@ steps:
   enabled: true
   inputs:
     script: |
-      export SCM_URI=https://30268-DSOI
+      export SCM_URI=$(Application_Profile_name)
       export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
       export scaDownloadUrl=https://download.srcclr.com/ci.sh
       export SCM_REF_TYPE=branch
