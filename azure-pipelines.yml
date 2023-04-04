@@ -21,6 +21,23 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**/?(*.ear|*.war|*.jar)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: Veracode@3
+  inputs:
+    ConnectionDetailsSelection: 'Service Connection'
+    AnalysisService: '30268-VerademoJava'
+    veracodeAppProfile: '30268-DSOI'
+    version: '$(build.buildNumber)'
+    filepath: '$(build.artifactstagingdirectory)'
+    sandboxName: 'Verademo'
+    createSandBox: true # make sure the create sandbox is set to true
+    maximumWaitTime: '360'
+
 - task: CmdLine@2
   displayName: SCA for Linux 
   enabled: true
