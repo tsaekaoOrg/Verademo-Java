@@ -59,22 +59,5 @@ steps:
       # ls -ld  ~/.m2
       # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
       # ls -l  ~/.m2/settings.xml
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
+      # curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
       curl -X 'GET' 'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' -H 'accept: application/json'
-
-# Invoke REST API v1
-# Invoke a REST API as a part of your pipeline.
-- task: InvokeRESTAPI@1
-  displayName: SBOM Generation
-  enabled: false
-  inputs:
-    connectionType: 'connectedServiceName' # 'connectedServiceName' | 'connectedServiceNameARM'. Alias: connectedServiceNameSelector. Required. Connection type. Default: connectedServiceName.
-    serviceConnection: '30268-VerademoJava' # string. Alias: connectedServiceName | genericService. Required when connectedServiceNameSelector = connectedServiceName. Generic service connection. 
-    #azureServiceConnection: # string. Alias: connectedServiceNameARM | azureSubscription. Required when connectedServiceNameSelector = connectedServiceNameARM. Azure subscription. 
-    method: 'GET' # 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'PATCH'. Required. Method. Default: POST.
-    #headers: # string. Headers. 
-    #body: # string. Optional. Use when method != GET && method != HEAD. Body. 
-    urlSuffix: 'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' # string. URL suffix and parameters. 
-  # Advanced
-    waitForCompletion: 'false' # 'true' | 'false'. Required. Completion event. Default: false.
-    #successCriteria: # string. Optional. Use when waitForCompletion = false. Success criteria.
