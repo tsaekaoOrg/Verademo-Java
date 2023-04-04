@@ -61,5 +61,5 @@ steps:
       # ls -l  ~/.m2/settings.xml
       # curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
       curl -X 'GET' \
-      'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' \
-      -H 'accept: application/json'
+        'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' \
+        -H 'accept: application/json'
