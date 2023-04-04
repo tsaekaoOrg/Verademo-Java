@@ -37,7 +37,7 @@ steps:
     filepath: '$(build.artifactstagingdirectory)'
     createSandBox: false # Set true to create sandbox, or false if sandbox is already created
     sandboxName: 'Verademo'
-    importResults: true
+    # importResults: true # Set true if you want the SAST scan results in the console output
     maximumWaitTime: '360'
 
 - task: CmdLine@2
@@ -45,7 +45,7 @@ steps:
   enabled: true
   inputs:
     script: |
-      export SCM_URI=$(Application_Profile_name)
+      export SCM_URI='https://-$(Application_Profile_name)'
       export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
       export scaDownloadUrl=https://download.srcclr.com/ci.sh
       export SCM_REF_TYPE=branch
@@ -57,4 +57,4 @@ steps:
       # ls -ld  ~/.m2
       # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
       # ls -l  ~/.m2/settings.xml
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $(Application_Profile_name) --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
+      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $(SCM_URI) --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
