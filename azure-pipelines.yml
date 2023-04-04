@@ -30,7 +30,7 @@ steps:
 
 - task: Veracode@3
   displayName: SAST Scan
-  enabled: true
+  enabled: false
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
@@ -44,7 +44,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Scan 
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://$(Application_Profile_name)'
@@ -60,3 +60,19 @@ steps:
       # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
       # ls -l  ~/.m2/settings.xml
       curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
+
+# Invoke REST API v1
+# Invoke a REST API as a part of your pipeline.
+- task: InvokeRESTAPI@1
+  displayName: SBOM Generation
+  inputs:
+    connectionType: 'connectedServiceName' # 'connectedServiceName' | 'connectedServiceNameARM'. Alias: connectedServiceNameSelector. Required. Connection type. Default: connectedServiceName.
+    serviceConnection: '30268-VerademoJava' # string. Alias: connectedServiceName | genericService. Required when connectedServiceNameSelector = connectedServiceName. Generic service connection. 
+    #azureServiceConnection: # string. Alias: connectedServiceNameARM | azureSubscription. Required when connectedServiceNameSelector = connectedServiceNameARM. Azure subscription. 
+    method: 'GET' # 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'PATCH'. Required. Method. Default: POST.
+    #headers: # string. Headers. 
+    #body: # string. Optional. Use when method != GET && method != HEAD. Body. 
+    urlSuffix: 'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' # string. URL suffix and parameters. 
+  # Advanced
+    waitForCompletion: 'false' # 'true' | 'false'. Required. Completion event. Default: false.
+    #successCriteria: # string. Optional. Use when waitForCompletion = false. Success criteria.
