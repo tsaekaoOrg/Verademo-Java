@@ -32,11 +32,11 @@ steps:
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
-    veracodeAppProfile: $(Application_Profile_name)
+    veracodeAppProfile: '$(Application_Profile_name)'
     version: 'Verademo-$(build.buildNumber)'
     filepath: '$(build.artifactstagingdirectory)'
-    sandboxName: 'Verademo'
     createSandBox: false # Set true to create sandbox, or false if sandbox is already created
+    sandboxName: 'Verademo'
     importResults: true
     maximumWaitTime: '360'
 
@@ -57,4 +57,4 @@ steps:
       # ls -ld  ~/.m2
       # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
       # ls -l  ~/.m2/settings.xml
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
+      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $(Application_Profile_name) --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
