@@ -54,11 +54,6 @@ steps:
       # make sure the branch name is set appropriately for the below scm_ref 
       export SCM_REF=main
       export SCM_REV=1.0
-      # If the pom file is not in source directory cd to where pom.xml and add the maven settings to the scan run
-      # cd $(Build.SourcesDirectory)/$(repo_name)
-      # ls -ld  ~/.m2
-      # cp $(Build.SourcesDirectory)/maven-settings.xml ~/.m2/settings.xml
-      # ls -l  ~/.m2/settings.xml
       curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
       # curl -u 'GET' \
       #  'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' \
