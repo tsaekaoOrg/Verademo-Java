@@ -65,3 +65,12 @@ jobs:
       with:
         # Path to SARIF file relative to the root of the repository
         sarif_file: veracode-results.sarif
+        
+
+    - name: Veracode scan results to GitHub issues Action
+  # You may pin to the exact commit or the version.
+  # uses: veracode/veracode-flaws-to-issues@8d94267a4d71de4400348fd755344dc88d5cb8b9
+      uses: veracode/veracode-flaws-to-issues@v2.1.19
+      with:
+    # Scan results file
+        scan-results-json: 'results.json' # default is filtered_results.json
