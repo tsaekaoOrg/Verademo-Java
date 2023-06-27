@@ -83,4 +83,4 @@ jobs:
       uses: buzzcode/veracode-flaws-to-issues@v1
       with:
           scan-results-json: 'filtered_results.json'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.REPO_TOKEN }}
