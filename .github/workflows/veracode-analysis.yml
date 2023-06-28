@@ -65,7 +65,7 @@ jobs:
     - uses: github/codeql-action/upload-sarif@v2
       with:
         # Path to SARIF file relative to the root of the repository
-        sarif_file: tsaekao/verademojava/veracode-results.sarif
+        sarif_file: tsaekao/verademo-java/veracode-results.sarif
         
     - name: save filtered results file
       uses: actions/upload-artifact@v2
