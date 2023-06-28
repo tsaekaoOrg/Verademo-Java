@@ -66,9 +66,6 @@ jobs:
       with:
         # Path to SARIF file relative to the root of the repository
         sarif_file: veracode-results.sarif
-        
-    - name: Veracode scan results to GitHub issues Action
-      uses: veracode/veracode-flaws-to-issues@v2.1.19
 
     - name: save filtered results file
       uses: actions/upload-artifact@v2
@@ -87,7 +84,7 @@ jobs:
           name: filtered-results
 
       - name: import flaws as issues
-        uses: buzzcode/veracode-flaws-to-issues@v1
+        uses: buzzcode/veracode-flaws-to-issues@v2.1.19
         with:
           scan-results-json: 'filtered_results.json'
           github-token: ${{ secrets.GITHUB_TOKEN }}
