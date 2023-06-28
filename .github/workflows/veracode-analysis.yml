@@ -75,6 +75,7 @@ jobs:
 
 # This step will import the flaws from the step above
   import-issues:
+    needs: build-and-pipeline-scan
     runs-on: ubuntu-latest
     steps:
       - name: get scan results
