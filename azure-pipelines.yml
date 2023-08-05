@@ -30,7 +30,7 @@ steps:
 
 - task: Veracode@3
   displayName: SAST Scan
-  enabled: true
+  enabled: false
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
@@ -44,7 +44,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Scan 
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://$(Application_Profile_name)'
@@ -58,3 +58,18 @@ steps:
       # curl -u 'GET' \
       #  'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' \
       #  -H 'accept: application/json'
+
+- task: Bash@3
+  displayName: Veracode Pipeline Scan
+  enabled: true
+  inputs:
+    targetType: "inline"
+    script: |
+      curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+      unzip -o pipeline-scan-LATEST.zip
+      java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f /home/vsts/work/1/s/app/target/verademo.war || true
+    # VERACODE_API_ID and VERACODE_API_KEY environment variables must reference your API credentials.
+    # "|| true" specifies to continue build if Pipeline Scan discovers flaws.
+    # To fail the build for new flaws not listed in a baseline file, add an existing baseline file with "-bf <baseline filename>" and remove "|| true".
+- publish: $(System.DefaultWorkingDirectory)/results.json # Save the scan results as a file named results.json.
+  artifact: VeracodeBaseline
