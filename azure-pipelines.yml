@@ -30,7 +30,7 @@ steps:
 
 - task: Veracode@3
   displayName: SAST Scan
-  enabled: false
+  enabled: true
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
@@ -44,7 +44,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Scan 
-  enabled: false
+  enabled: true
   inputs:
     script: |
       export SCM_URI='https://$(Application_Profile_name)'
@@ -61,7 +61,7 @@ steps:
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
-  enabled: true
+  enabled: false
   inputs:
     targetType: "inline"
     script: |
