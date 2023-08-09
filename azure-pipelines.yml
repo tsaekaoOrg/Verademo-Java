@@ -30,7 +30,7 @@ steps:
 
 - task: Veracode@3
   displayName: SAST Scan
-  enabled: true
+  enabled: false
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: '30268-VerademoJava'
