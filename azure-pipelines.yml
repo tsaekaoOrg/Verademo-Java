@@ -47,7 +47,7 @@ steps:
   enabled: false
   inputs:
     script: |
-      export SCM_URI='https://$(Application_Profile_name)'
+      export SCM_URI='https://Verademo-ADO'
       export SRCCLR_API_TOKEN=$(SRCCLR_API_TOKEN)
       export scaDownloadUrl=https://download.srcclr.com/ci.sh
       export SCM_REF_TYPE=branch
@@ -55,9 +55,6 @@ steps:
       export SCM_REF=main
       export SCM_REV=1.0
       curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
-      # curl -u 'GET' \
-      #  'https://api.veracode.com/srcclr/v3/workspaces?filter%5Bworkspace%5D=WS-30268' \
-      #  -H 'accept: application/json'
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
@@ -72,5 +69,5 @@ steps:
     # VERACODE_API_ID and VERACODE_API_KEY environment variables must reference your API credentials.
     # "|| true" specifies to continue build if Pipeline Scan discovers flaws.
     # To fail the build for new flaws not listed in a baseline file, add an existing baseline file with "-bf <baseline filename>" and remove "|| true".
-- publish: $(System.DefaultWorkingDirectory)/results.json # Save the scan results as a file named results.json.
-  artifact: VeracodeBaseline
+#  publish: $(System.DefaultWorkingDirectory)/results.json # Save the scan results as a file named results.json.
+#  artifact: VeracodeBaseline
