@@ -33,18 +33,18 @@ steps:
   enabled: true
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
-    AnalysisService: '30268-VerademoJava'
-    veracodeAppProfile: '$(Application_Profile_name)'
+    AnalysisService: 'verademo'
+    veracodeAppProfile: 'Verademo'
     version: 'Verademo-$(build.buildNumber)'
     filepath: '$(build.artifactstagingdirectory)'
-    createSandBox: false # Set true to create sandbox, or false if sandbox is already created
-    sandboxName: 'Verademo'
+    createSandBox: true # Set true to create sandbox, or false if sandbox is already created
+    sandboxName: 'Azure DevOps'
     # importResults: true # Set true if you want the SAST scan results in the console output
     maximumWaitTime: '360'
 
 - task: CmdLine@2
   displayName: SCA Scan 
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://$(Application_Profile_name)'
