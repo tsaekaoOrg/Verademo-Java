@@ -29,7 +29,7 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: Veracode@3
-  displayName: SAST Scan
+  displayName: Upload and Scan
   enabled: true
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
@@ -43,7 +43,7 @@ steps:
     maximumWaitTime: '360'
 
 - task: CmdLine@2
-  displayName: SCA Scan 
+  displayName: SCA Agent-Based Scan
   enabled: true
   inputs:
     script: |
