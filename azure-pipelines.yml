@@ -44,7 +44,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Scan 
-  enabled: false
+  enabled: true
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
