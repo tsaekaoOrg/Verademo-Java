@@ -41,7 +41,20 @@ steps:
     sandboxName: 'Azure DevOps'
     # importResults: true # Set true if you want the SAST scan results in the console output
     maximumWaitTime: '360'
-
+- task: Veracode Flaw Importer@3
+  inputs:
+    ConnectionDetailsSelection: 'Service Connection'
+    AnalysisService: 'verademo'
+    failBuildIfFlawImporterFails: true
+    veracodeAppProfile: 'Verademo'
+    sandboxName: 'Azure DevOps'
+    scanType: 'Static, SCA'
+    importType: 'All Unmitigated Flaws Violating Policy'
+    workItemType: 'Issue'
+    area: '$(system.teamProject)'
+    overwriteAreaPathInWorkItemsOnImport: true
+    iterationPath: '$(system.teamProject)'
+    flawImportLimit: '1000'
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
   enabled: true
@@ -58,7 +71,7 @@ steps:
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
-  enabled: false
+  enabled: true
   inputs:
     targetType: "inline"
     script: |
