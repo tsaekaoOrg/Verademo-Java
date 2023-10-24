@@ -30,7 +30,7 @@ steps:
 
 - task: Veracode@3
   displayName: Upload and Scan
-  enabled: true
+  enabled: false
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'verademo'
@@ -42,6 +42,8 @@ steps:
     # importResults: true # Set true if you want the SAST scan results in the console output
     maximumWaitTime: '360'
 - task: Veracode Flaw Importer@3
+  displayName: Veracode Flaw Importer
+  enabled: false
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'verademo'
@@ -57,7 +59,7 @@ steps:
     flawImportLimit: '1000'
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
@@ -71,16 +73,14 @@ steps:
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
-  enabled: true
   inputs:
     targetType: "inline"
     script: |
-      su - root
       curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
       unzip -o pipeline-scan-LATEST.zip
-      java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f '$(build.artifactstagingdirectory)/verademo.war' || true
+      java -jar pipeline-scan.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -f /home/vsts/work/1/s/app/target/verademo.war || true
     # VERACODE_API_ID and VERACODE_API_KEY environment variables must reference your API credentials.
     # "|| true" specifies to continue build if Pipeline Scan discovers flaws.
     # To fail the build for new flaws not listed in a baseline file, add an existing baseline file with "-bf <baseline filename>" and remove "|| true".
-#  publish: $(System.DefaultWorkingDirectory)/results.json # Save the scan results as a file named results.json.
-#  artifact: VeracodeBaseline
+- publish: $(System.DefaultWorkingDirectory)/results.json # Save the scan results as a file named results.json.
+  artifact: VeracodeBaseline
