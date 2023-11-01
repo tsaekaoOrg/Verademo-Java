@@ -34,7 +34,7 @@ steps:
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'verademo'
-    veracodeAppProfile: 'Verademo'
+    veracodeAppProfile: 'Verademo-Java'
     version: 'Verademo-$(build.buildNumber)'
     filepath: '$(build.artifactstagingdirectory)'
     createSandBox: false # Set true to create sandbox, or false if sandbox is already created
@@ -61,7 +61,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
@@ -75,7 +75,7 @@ steps:
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
-  enabled: true
+  enabled: false
   inputs:
     targetType: "inline"
     script: |
