@@ -49,7 +49,7 @@ steps:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'verademo'
     failBuildIfFlawImporterFails: true
-    veracodeAppProfile: 'Verademo'
+    veracodeAppProfile: 'Verademo-Java'
     sandboxName: 'Azure DevOps'
     scanType: 'Static, SCA'
     importType: 'All Unmitigated Flaws Violating Policy'
