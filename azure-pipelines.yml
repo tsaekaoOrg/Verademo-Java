@@ -61,7 +61,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
-  enabled: false
+  enabled: true
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
@@ -71,11 +71,11 @@ steps:
       # make sure the branch name is set appropriately for the below scm_ref 
       export SCM_REF=main
       export SCM_REV=1.0
-      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE
+      curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --update-advisor
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
-  enabled: true
+  enabled: false
   inputs:
     targetType: "inline"
     script: |
