@@ -52,116 +52,116 @@ steps:
       echo             "FORM": { >> da_scan.json
       echo               "login_script_name": "login-script.side", >> da_scan.json
       echo               "login_script_data": { >> da_scan.json
-      echo                 "script_body": " {
-          "id": "4b5fbc82-26b1-4291-a90b-f35967cd4a13",
-          "version": "2.0",
-          "name": "Verademo DAST",
-          "url": "http://verademo.tsaekao.vuln.sa.veracode.io/verademo",
-          "tests": [{
-            "id": "b254886b-0204-4203-b8fc-b25adbb5247c",
-            "name": "Verademo DAST Login Script_20230927",
-            "commands": [{
-              "id": "abaf3ea7-fe92-439f-877d-85f84de5dd62",
-              "comment": "",
-              "command": "open",
-              "target": "http://verademo.tsaekao.vuln.sa.veracode.io/verademo/login",
-              "targets": [],
-              "value": ""
-            }, {
-              "id": "6a1d6c12-778a-4dc9-94ff-1acd94fae96b",
-              "comment": "",
-              "command": "setWindowSize",
-              "target": "1920x738",
-              "targets": [],
-              "value": ""
-            }, {
-              "id": "933cf820-e6f7-43c5-a865-bfab99ff39ac",
-              "comment": "",
-              "command": "click",
-              "target": "name=user",
-              "targets": [
-                ["name=user", "name"],
-                ["css=tr:nth-child(1) .form-control", "css:finder"],
-                ["xpath=//input[@name='user']", "xpath:attributes"],
-                ["xpath=//div/input", "xpath:position"]
-              ],
-              "value": ""
-            }, {
-              "id": "b7f0765b-cced-49d8-a885-866bd2a2a67f",
-              "comment": "",
-              "command": "type",
-              "target": "name=user",
-              "targets": [
-                ["name=user", "name"],
-                ["css=tr:nth-child(1) .form-control", "css:finder"],
-                ["xpath=//input[@name='user']", "xpath:attributes"],
-                ["xpath=//div/input", "xpath:position"]
-              ],
-              "value": "admin"
-            }, {
-              "id": "ccf839bb-277a-4191-9be4-18d6fb537327",
-              "comment": "",
-              "command": "click",
-              "target": "name=password",
-              "targets": [
-                ["name=password", "name"],
-                ["css=tr:nth-child(2) .form-control", "css:finder"],
-                ["xpath=//input[@name='password']", "xpath:attributes"],
-                ["xpath=//tr[2]/td[2]/div/input", "xpath:position"]
-              ],
-              "value": ""
-            }, {
-              "id": "6adb2116-b85c-4854-9eb8-617b82f5245a",
-              "comment": "",
-              "command": "type",
-              "target": "name=password",
-              "targets": [
-                ["name=password", "name"],
-                ["css=tr:nth-child(2) .form-control", "css:finder"],
-                ["xpath=//input[@name='password']", "xpath:attributes"],
-                ["xpath=//tr[2]/td[2]/div/input", "xpath:position"]
-              ],
-              "value": "admin"
-            }, {
-              "id": "906990a5-fc89-441d-88bf-5a1787f9bf8c",
-              "comment": "",
-              "command": "click",
-              "target": "id=login",
-              "targets": [
-                ["id=login", "id"],
-                ["name=Login", "name"],
-                ["css=#login", "css:finder"],
-                ["xpath=//button[@id='login']", "xpath:attributes"],
-                ["xpath=//button", "xpath:position"],
-                ["xpath=//button[contains(.,'Login')]", "xpath:innerText"]
-              ],
-              "value": ""
-            }, {
-              "id": "3099fd8d-3fc6-481b-b1a6-a56e009b12fd",
-              "comment": "",
-              "command": "assertText",
-              "target": "linkText=Logout",
-              "targets": [
-                ["linkText=Logout", "linkText"],
-                ["css=li:nth-child(5) > a", "css:finder"],
-                ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
-                ["xpath=//a[contains(@href, 'logout')]", "xpath:href"],
-                ["xpath=//li[5]/a", "xpath:position"],
-                ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
-              ],
-              "value": "Logout"
-            }]
-          }],
-          "suites": [{
-            "id": "7b7c6c12-9b58-4f00-9da4-bce02aa072a0",
-            "name": "Default Suite",
-            "persistSession": false,
-            "parallel": false,
-            "timeout": 300,
-            "tests": ["b254886b-0204-4203-b8fc-b25adbb5247c"]
-          }],
-          "urls": ["http://verademo.tsaekao.vuln.sa.veracode.io/verademo"],
-          "plugins": [] } ", >> da_scan.json
+      echo                 "script_body": " { 
+      "id": "4b5fbc82-26b1-4291-a90b-f35967cd4a13", 
+      "version": "2.0",
+      "name": "Verademo DAST",
+      "url": "http://verademo.tsaekao.vuln.sa.veracode.io/verademo",
+      "tests": [{
+      "id": "b254886b-0204-4203-b8fc-b25adbb5247c",
+      "name": "Verademo DAST Login Script_20230927",
+      "commands": [{
+      "id": "abaf3ea7-fe92-439f-877d-85f84de5dd62",
+      "comment": "",
+      "command": "open",
+      "target": "http://verademo.tsaekao.vuln.sa.veracode.io/verademo/login",
+      "targets": [],
+      "value": ""
+      }, {
+      "id": "6a1d6c12-778a-4dc9-94ff-1acd94fae96b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x738",
+      "targets": [],
+      "value": ""
+      }, {
+      "id": "933cf820-e6f7-43c5-a865-bfab99ff39ac",
+      "comment": "",
+      "command": "click",
+      "target": "name=user",
+      "targets": [
+      ["name=user", "name"],
+      ["css=tr:nth-child(1) .form-control", "css:finder"],
+      ["xpath=//input[@name='user']", "xpath:attributes"],
+      ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+      }, {
+      "id": "b7f0765b-cced-49d8-a885-866bd2a2a67f",
+      "comment": "",
+      "command": "type",
+      "target": "name=user",
+      "targets": [
+      ["name=user", "name"],
+      ["css=tr:nth-child(1) .form-control", "css:finder"],
+      ["xpath=//input[@name='user']", "xpath:attributes"],
+      ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "admin"
+      }, {
+      "id": "ccf839bb-277a-4191-9be4-18d6fb537327",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+      ["name=password", "name"],
+      ["css=tr:nth-child(2) .form-control", "css:finder"],
+      ["xpath=//input[@name='password']", "xpath:attributes"],
+      ["xpath=//tr[2]/td[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+      }, {
+      "id": "6adb2116-b85c-4854-9eb8-617b82f5245a",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+      ["name=password", "name"],
+      ["css=tr:nth-child(2) .form-control", "css:finder"],
+      ["xpath=//input[@name='password']", "xpath:attributes"],
+      ["xpath=//tr[2]/td[2]/div/input", "xpath:position"]
+      ],
+      "value": "admin"
+      }, {
+      "id": "906990a5-fc89-441d-88bf-5a1787f9bf8c",
+      "comment": "",
+      "command": "click",
+      "target": "id=login",
+      "targets": [
+      ["id=login", "id"],
+      ["name=Login", "name"],
+      ["css=#login", "css:finder"],
+      ["xpath=//button[@id='login']", "xpath:attributes"],
+      ["xpath=//button", "xpath:position"],
+      ["xpath=//button[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+      }, {
+      "id": "3099fd8d-3fc6-481b-b1a6-a56e009b12fd",
+      "comment": "",
+      "command": "assertText",
+      "target": "linkText=Logout",
+      "targets": [
+      ["linkText=Logout", "linkText"],
+      ["css=li:nth-child(5) > a", "css:finder"],
+      ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
+      ["xpath=//a[contains(@href, 'logout')]", "xpath:href"],
+      ["xpath=//li[5]/a", "xpath:position"],
+      ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": "Logout"
+      }]
+      }],
+      "suites": [{
+      "id": "7b7c6c12-9b58-4f00-9da4-bce02aa072a0",
+      "name": "Default Suite",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": ["b254886b-0204-4203-b8fc-b25adbb5247c"]
+      }],
+      "urls": ["http://verademo.tsaekao.vuln.sa.veracode.io/verademo"],
+      "plugins": [] } ", >> da_scan.json
       echo                 "script_type": "SELENIUM" >> da_scan.json
       echo               }, >> da_scan.json
       echo               "authtype": "FORM" >> da_scan.json
