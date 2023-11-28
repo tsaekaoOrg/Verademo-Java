@@ -81,7 +81,7 @@ steps:
     targetType: "inline"
     script: |
       curl -sSO https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/23.8.12.0/vosp-api-wrappers-java-23.8.12.0-dist.zip
-      unzip -o vosp-api-wrappers-java-23.8.12.0-dist
+      unzip -o vosp-api-wrappers-java-23.8.12.0-dist.zip
       java -jar VeracodeJavaAPI.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -action uploadandscan -appname 'Verademo-Java' -createprofile false -filepath '$(build.artifactstagingdirectory)' -version 'Verademo-Policy-$(build.buildNumber)'
 
 - task: Bash@3
