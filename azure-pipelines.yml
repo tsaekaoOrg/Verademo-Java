@@ -61,7 +61,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
-  enabled: true
+  enabled: false
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
@@ -73,6 +73,16 @@ steps:
       export SCM_REV=1.0
       # curl -sSL $scaDownloadUrl | env DEBUG=1 bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --update-advisor
       curl -sSL $scaDownloadUrl | env bash -s scan --scm-uri $SCM_URI --scm-rev $SCM_REV --scm-ref $SCM_REF --scm-ref-type $SCM_REF_TYPE --update-advisor
+
+- task: Bash@3
+  displayName: Policy Scan API Wrapper
+  enabled: true
+  inputs:
+    targetType: "inline"
+    script: |
+      curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/23.8.12.0/vosp-api-wrappers-java-23.8.12.0-dist.zip
+      unzip -o vosp-api-wrappers-java-23.8.12.0-dist.zip
+      java -jar VeracodeJavaAPI.jar -vid $(VERACODE_API_ID) -vkey $(VERACODE_API_KEY) -action uploadandscan -appname 'Verademo-Java' -createprofile false -filepath '$(build.artifactstagingdirectory)' -version 'Verademo-Policy-$(build.buildNumber)'
 
 - task: Bash@3
   displayName: Veracode Pipeline Scan
