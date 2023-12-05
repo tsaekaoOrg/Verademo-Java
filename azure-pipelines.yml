@@ -10,6 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: Bash@3
+  displayName: DAST Essentials
+  enabled: true
+  inputs:
+    targetType: "inline"
+    script: |
+      bash start_veracode.sh $VERACODE_WEBHOOK $VERACODE_API_ID $VERACODE_API_KEY
+       env:
+       VERACODE_WEBHOOK: $(veracodeWebhook)
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'test-reports/*.xml'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -76,7 +91,7 @@ steps:
 
 - task: Bash@3
   displayName: Policy Scan API Wrapper
-  enabled: true
+  enabled: false
   inputs:
     targetType: "inline"
     script: |
