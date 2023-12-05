@@ -12,5 +12,5 @@ jobs:
       id: Veracode 
       uses: crashtest-security/crashtest-security-action@v1.0.0
       with:
-       crashtest-webhook: 'e85108f9-7658-44f9-bdda-6c42c89b0217'
+       crashtest-webhook: '${{ secrets.CRASHTEST_WEBHOOK }}'
        pull-report: false
