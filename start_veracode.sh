@@ -6,12 +6,15 @@
 set -euo pipefail
 
 # Set WEBHOOK to webhook secret (without URL)
+$1 = e85108f9-7658-44f9-bdda-6c42c89b0217
 WEBHOOK=$1
 
 # Set the Veracode API ID
+$2 = 33fc073f8869e62e36e6baf9d387a025
 API_ID=$2
 
 # Set the Veracode API SECRET
+$3 = b52391414e944fd7239c2e1c2f12c0745da05dae286072b7c0c98920778b30276b6008552a98ca0695d1dd02e792087b196503039b8a0ece038e6b5785b64bec
 API_SECRET=$3
 
 # Set the API endpoint
