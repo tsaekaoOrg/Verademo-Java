@@ -1,0 +1,17 @@
+name: DAST Essentials
+
+on:
+  workflow_dispatch:
+
+jobs:
+  veracode_security_scan:
+    runs-on: ubuntu-latest
+    name: Run Veracode Scan
+    steps:
+    - name: Veracode Action Step
+      id: Veracode 
+      uses: crashtest-security/crashtest-security-action@v1.0.0
+      with:
+        VERACODE_WEBHOOK: e85108f9-7658-44f9-bdda-6c42c89b0217
+        VERACODE_SECRET_ID: 33fc073f8869e62e36e6baf9d387a025
+        VERACODE_SECRET_ID_KEY: b52391414e944fd7239c2e1c2f12c0745da05dae286072b7c0c98920778b30276b6008552a98ca0695d1dd02e792087b196503039b8a0ece038e6b5785b64bec>
