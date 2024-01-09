@@ -45,7 +45,7 @@ steps:
 
 - task: Veracode@3
   displayName: Upload and Scan
-  enabled: false
+  enabled: true
   inputs:
     ConnectionDetailsSelection: 'Service Connection'
     AnalysisService: 'verademo'
@@ -76,7 +76,7 @@ steps:
 
 - task: CmdLine@2
   displayName: SCA Agent-Based Scan
-  enabled: false
+  enabled: true
   inputs:
     script: |
       export SCM_URI='https://Verademo-ADO'
