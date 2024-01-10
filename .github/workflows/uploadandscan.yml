@@ -1,4 +1,4 @@
-name: Veracode Static Analysis Demo
+name: Veracode Upload & Scan
 on: workflow_dispatch
     
 jobs:
