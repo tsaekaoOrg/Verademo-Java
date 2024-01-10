@@ -16,14 +16,13 @@ jobs:
       - name: Veracode Upload And Scan
         uses: veracode/veracode-uploadandscan-action@0.2.6
         with:
-          appname: '30268-DSOI'
+          appname: 'Verademo-Java'
           createprofile: false
           filepath: 'app/target/verademo.war'
           vid: '${{ secrets.API_ID }}'
           vkey: '${{ secrets.API_KEY }}'
-          createsandbox: 'false'
-          sandboxname: 'Verademo'
+          createsandbox: 'true'
+          sandboxname: 'GitHub Actions'
 #          scantimeout: 0
 #          exclude: '*.js'
-          include: '*.war'
-          criticality: 'VeryHigh'
+#          criticality: 'VeryHigh'
