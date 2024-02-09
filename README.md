@@ -49,7 +49,3 @@ Open `/reset` in your browser and follow the instructions to prep the database
 Login with your username/password as defined in `Utils.java`
 
 # TEST2
-# TEST3
-# TEST5
-# TEST6
-# TEST7
