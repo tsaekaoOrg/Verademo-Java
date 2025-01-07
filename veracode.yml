@@ -1,2 +1,2 @@
 veracode_static_scan:
-profile: 'Verademo-Java'
+  profile: 'Verademo-Java'
